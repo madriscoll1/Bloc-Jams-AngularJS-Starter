@@ -40,8 +40,9 @@
             setSong(song);
             playSong(song);
           } else if (currentSong === song) {
+              setSong(song);
               if (currentBuzzObject.isPaused()) {
-                currentBuzzObject.play();
+                playSong(song);
               }
             }
         };
