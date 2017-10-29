@@ -99,11 +99,13 @@
     SongPlayer.next = function() {
       var currentSongIndex = getSongIndex(SongPlayer.currentSong);
       currentSongIndex++;
+      var song = currentAlbum.songs[currentSongIndex];
+      if (currentSongIndex > 4) {
+        currentBuzzObject.stop();
+        SongPlayer.currentSong.playing = null;
 
-      if (currentSongIndex > currentAlbum.songs.length) {
-         stopSong(SongPlayer.currentSong);
      } else {
-         var song = currentAlbum.songs[currentSongIndex];
+
          setSong(song);
          playSong(song);
      }
