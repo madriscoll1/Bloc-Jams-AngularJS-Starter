@@ -35,10 +35,10 @@
     }
 
     /**
-    * @function stopSong
-    * @desc stops currentBuzzObject and set playing property to null
-    * @param {Object} song
-    */
+     * @function stopSong
+     * @desc stops currentBuzzObject and set playing property to null
+     * @param {Object} song
+     */
     var stopSong = function(song) {
       currentBuzzObject.stop();
       song.playing = null;
@@ -79,36 +79,48 @@
     };
 
     /**
-    * @function SongPlayer.previous
-    * @desc changes currently playing song to the previous song on album
-    */
+     * @function SongPlayer.previous
+     * @desc changes currently playing song to the previous song on album
+     */
     SongPlayer.previous = function() {
       var currentSongIndex = getSongIndex(SongPlayer.currentSong);
       currentSongIndex--;
 
       if (currentSongIndex < 0) {
-         currentBuzzObject.stop();
-         SongPlayer.currentSong.playing = null;
-     } else {
-         var song = currentAlbum.songs[currentSongIndex];
-         setSong(song);
-         playSong(song);
-     }
+        if (currentBuzzObject !== null) {
+
+          currentBuzzObject.stop();
+          SongPlayer.currentSong.playing = null;
+
+        }
+        currentBuzzObject.stop();
+        SongPlayer.currentSong.playing = null;
+      } else {
+        var song = currentAlbum.songs[currentSongIndex];
+        setSong(song);
+        playSong(song);
+      }
     };
 
     SongPlayer.next = function() {
       var currentSongIndex = getSongIndex(SongPlayer.currentSong);
       currentSongIndex++;
       var song = currentAlbum.songs[currentSongIndex];
-      if (currentSongIndex > 4) {
+      if (currentSongIndex > currentAlbum.songs.length - 1) {
+        if (currentBuzzObject !== null) {
+
+          currentBuzzObject.stop();
+          SongPlayer.currentSong.playing = null;
+
+        }
         currentBuzzObject.stop();
         SongPlayer.currentSong.playing = null;
 
-     } else {
+      } else {
 
-         setSong(song);
-         playSong(song);
-     }
+        setSong(song);
+        playSong(song);
+      }
     };
 
     return SongPlayer;
